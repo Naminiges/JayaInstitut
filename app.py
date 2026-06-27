@@ -126,17 +126,17 @@ model, preprocessor = load_model_artifacts()
 # Render Header
 st.markdown("""
 <div class="header-card">
-    <h1 class="header-title">🎓 Jaya Jaya Institut</h1>
+    <h1 class="header-title">Jaya Jaya Institut</h1>
     <p class="header-subtitle">Early Warning System: Deteksi Dini & Pencegahan Mahasiswa Dropout</p>
 </div>
 """, unsafe_allow_html=True)
 
 if model is None:
-    st.error("⚠️ File model atau preprocessor tidak ditemukan di folder `model/`. Silakan jalankan `notebook.ipynb` atau script pelatihan terlebih dahulu untuk menghasilkan file model.")
+    st.error("File model atau preprocessor tidak ditemukan di folder `model/`. Silakan jalankan `notebook.ipynb` atau script pelatihan terlebih dahulu untuk menghasilkan file model.")
     st.stop()
 
 # Sidebar Information
-st.sidebar.markdown("### 📊 Ringkasan Model")
+st.sidebar.markdown("### Ringkasan Model")
 st.sidebar.info(
     f"**Model:** Gradient Boosting Classifier\n\n"
     f"**ROC-AUC Score:** 95.64%\n\n"
@@ -146,7 +146,7 @@ st.sidebar.info(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### ⚙️ Cara Menggunakan")
+st.sidebar.markdown("### Cara Menggunakan")
 st.sidebar.write(
     "1. Gunakan salah satu tombol **Template Profil** untuk memuat sampel secara cepat.\n"
     "2. Atau sesuaikan manual form input di sebelah kanan.\n"
@@ -282,7 +282,7 @@ templates = {
 }
 
 # Template Selection Buttons
-st.markdown("<div class='section-title'>⚡ Pilih Profil Contoh (Template)</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Pilih Profil Contoh (Template)</div>", unsafe_allow_html=True)
 col_t1, col_t2, col_t3 = st.columns(3)
 
 # Use session state to handle form updates from templates
@@ -301,10 +301,10 @@ if col_t3.button("🟡 Profil Rata-rata (Moderate Risk)"):
 active_data = st.session_state["active_profile"]
 
 # Render Input Form
-st.markdown("<div class='section-title'>📝 Data & Profil Lengkap Mahasiswa</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Data & Profil Lengkap Mahasiswa</div>", unsafe_allow_html=True)
 
 with st.form("dropout_prediction_form"):
-    tab1, tab2, tab3 = st.tabs(["👥 Demografi & Sosial-Ekonomi", "📖 Pendaftaran & Akademik", "📈 Kondisi Ekonomi Makro"])
+    tab1, tab2, tab3 = st.tabs(["Demografi & Sosial-Ekonomi", "Pendaftaran & Akademik", "Kondisi Ekonomi Makro"])
     
     with tab1:
         c1, c2, c3 = st.columns(3)
@@ -455,7 +455,7 @@ with st.form("dropout_prediction_form"):
         with c_ec3:
             gdp = st.number_input("Tingkat Pertumbuhan PDB / GDP", min_value=-100.0, max_value=100.0, value=float(active_data["GDP"]))
 
-    submitted = st.form_submit_button("🚀 Mulai Analisis & Prediksi")
+    submitted = st.form_submit_button("Mulai Analisis & Prediksi")
 
 # Run Prediction Logic
 if submitted or active_data:
@@ -512,7 +512,7 @@ if submitted or active_data:
     # Apply custom threshold
     prediction = 1 if prob >= preprocessor['threshold'] else 0
     
-    st.markdown("<div class='section-title'>📊 Hasil Analisis Prediksi</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Hasil Analisis Prediksi</div>", unsafe_allow_html=True)
     
     col_res1, col_res2 = st.columns([1, 1])
     
@@ -520,20 +520,20 @@ if submitted or active_data:
         if prediction == 1:
             st.markdown(f"""
             <div class="result-box-dropout">
-                <h2 class="result-title">🚨 BERISIKO DROPOUT</h2>
+                <h2 class="result-title"> BERISIKO DROPOUT</h2>
                 <p class="result-text">Model mendeteksi mahasiswa ini memiliki probabilitas dropout sebesar <b>{prob*100:.1f}%</b> (melebihi batas aman {preprocessor['threshold']*100:.1f}%).</p>
             </div>
             """, unsafe_allow_html=True)
         else:
             st.markdown(f"""
             <div class="result-box-graduate">
-                <h2 class="result-title">✅ AKTIF / AKAN LULUS</h2>
+                <h2 class="result-title">AKTIF / AKAN LULUS</h2>
                 <p class="result-text">Model memprediksi mahasiswa ini aman dengan probabilitas dropout hanya sebesar <b>{prob*100:.1f}%</b> (berada di bawah batas aman {preprocessor['threshold']*100:.1f}%).</p>
             </div>
             """, unsafe_allow_html=True)
             
     with col_res2:
-        st.write("#### 🎯 Indikator Tingkat Risiko")
+        st.write("#### Indikator Tingkat Risiko")
         # Visual progress bar with dynamic color
         if prob < 0.35:
             st.progress(prob, text=f"Risiko Rendah: {prob*100:.1f}%")
@@ -546,24 +546,24 @@ if submitted or active_data:
         st.markdown("**Analisis Faktor Kunci:**")
         drivers = []
         if tuition_up_to_date == 0:
-            drivers.append("⚠️ Pembayaran SPP tidak lancar / menunggak.")
+            drivers.append("Pembayaran SPP tidak lancar / menunggak.")
         if sem1_app < 3 or sem2_app < 3:
-            drivers.append("⚠️ Jumlah mata kuliah yang lulus di semester awal sangat sedikit.")
+            drivers.append("Jumlah mata kuliah yang lulus di semester awal sangat sedikit.")
         if sem1_grade < 10 or sem2_grade < 10:
-            drivers.append("⚠️ Nilai akademik berada di bawah standar rata-rata (Grade < 10.0).")
+            drivers.append("Nilai akademik berada di bawah standar rata-rata (Grade < 10.0).")
         if age > 25:
-            drivers.append("ℹ️ Usia pendaftaran dewasa (>25 tahun), cenderung memiliki tantangan ekstra.")
+            drivers.append("Usia pendaftaran dewasa (>25 tahun), cenderung memiliki tantangan ekstra.")
         if scholarship == 1:
-            drivers.append("✨ Penerima beasiswa (faktor positif untuk mengurangi risiko).")
+            drivers.append("Penerima beasiswa (faktor positif untuk mengurangi risiko).")
             
         if drivers:
             for driver in drivers:
                 st.write(driver)
         else:
-            st.write("✨ Tidak ada indikator risiko besar yang terdeteksi secara akademis maupun administratif.")
+            st.write("Tidak ada indikator risiko besar yang terdeteksi secara akademis maupun administratif.")
 
     st.markdown("---")
-    st.markdown("<div class='section-title'>💡 Rekomendasi Action Items Bagi Institusi (HR/Akademik)</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Rekomendasi Action Items Bagi Institusi (HR/Akademik)</div>", unsafe_allow_html=True)
     
     if prediction == 1:
         st.warning("""
