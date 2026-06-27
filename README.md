@@ -106,6 +106,9 @@ streamlit run app.py
 ```
 Aplikasi web ini akan terbuka di peramban Anda di alamat default `http://localhost:8501`.
 
+Berikut adalah tautan ke aplikasi web yang sudah di-deploy:
+https://jaya-institut-puteranami.streamlit.app/
+
 ---
 
 ## Conclusion & Business Implications
