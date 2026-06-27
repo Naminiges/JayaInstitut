@@ -7,7 +7,6 @@ import os
 # Set page configuration with a premium icon and layout
 st.set_page_config(
     page_title="Jaya Jaya Institut - Student Dropout Early Warning System",
-    page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
 )
